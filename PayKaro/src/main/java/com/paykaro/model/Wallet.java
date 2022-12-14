@@ -1,5 +1,6 @@
 package com.paykaro.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,22 +10,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import lombok.Data;
 
 @Entity
 @Data
-public class Customer {
+public class Wallet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer cid;
-	private String name;
-	private String mobileNumber;
-	private String password;
-	@OneToOne(cascade = CascadeType.ALL)
-	private Wallet wallet;
+	private Integer wid;
+	private BigDecimal balance;
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Benificiary> benificiaries = new ArrayList<>();
+	private List<Accouont> accouonts = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Transaction> transactions = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<BillPayment> billPayments = new ArrayList<>();
 
 }

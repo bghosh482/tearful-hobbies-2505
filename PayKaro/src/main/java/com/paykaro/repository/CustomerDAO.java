@@ -1,5 +1,9 @@
 package com.paykaro.repository;
 
-public interface CustomerDAO {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.paykaro.model.Customer;
+
+public interface CustomerDAO extends JpaRepository<Customer, Integer> {
 
 }
