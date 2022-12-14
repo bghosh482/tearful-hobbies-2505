@@ -2,6 +2,7 @@ package com.paykaro.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
@@ -9,6 +10,7 @@ import lombok.Data;
 @Entity
 @Data
 public class Accouont {
+	@Id
 	private Integer accId;
 	private String accountNo;
 	private String ifscCode;
