@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
@@ -11,6 +12,7 @@ import lombok.Data;
 @Entity
 @Data
 public class Transaction {
+	@Id
 	private Integer transactionId;
 	private String transactionType;
 	private LocalDate transactionDate;
