@@ -21,7 +21,7 @@ public class Wallet {
 	private Integer wid;
 	private BigDecimal balance;
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Accouont> accouonts = new ArrayList<>();
+	private List<Account> accouonts = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Transaction> transactions = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL)

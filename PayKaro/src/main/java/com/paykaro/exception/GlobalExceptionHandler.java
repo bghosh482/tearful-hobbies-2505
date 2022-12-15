@@ -29,4 +29,14 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 
 	}
+	
+	@ExceptionHandler(AccountNotExists.class)
+	public ResponseEntity<MyErrorDetails> accountNotExists(AccountNotExists ae, WebRequest req) {
+		MyErrorDetails err = new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(ae.getMessage());
+		err.setDescription(req.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+
+	}
 }

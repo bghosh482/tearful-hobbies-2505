@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Accouont {
+public class Account {
 	@Id
 	private Integer accId;
 	private String accountNo;
