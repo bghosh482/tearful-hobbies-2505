@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
- @Data
+@Data
 public class Accouont {
 	@Id
 	private Integer accId;
@@ -19,10 +19,6 @@ public class Accouont {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Wallet wallet;
 	
-	public static void main(String[] args) {
-		Accouont ac=new Accouont();
-		
-		 
-	}
+	 
 	
 }

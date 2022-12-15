@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.paykaro.dto.TransactionDTO;
 import com.paykaro.model.Transaction;
 import com.paykaro.model.Wallet;
 import com.paykaro.service.TransactionService;
@@ -26,17 +27,19 @@ public class TransactionController {
 	TransactionService transactionService;
 	
 	@PostMapping("/transaction")
-	public ResponseEntity<Transaction> addTranscation( @RequestBody Transaction tean) {
+	public ResponseEntity<Transaction> addTranscation( @io.swagger.v3.oas.annotations.parameters.RequestBody Transaction tr) {
 		
-		return new ResponseEntity<Transaction>(transactionService.addTranscation(tean), HttpStatus.ACCEPTED);
+		return new ResponseEntity<Transaction>(transactionService.addTranscation(tr), HttpStatus.ACCEPTED);
 	}
+	
+	
 
 	@GetMapping("/transactions{id}")
 	public ResponseEntity<List<Transaction>> viewTransactionByWallet(@PathVariable("id")  Integer wallet_id) {
 
 		return new ResponseEntity<>(transactionService.viewTransactionByWallet(wallet_id), HttpStatus.OK);
 	}
-
+ 
 	@GetMapping("/transaction")
 	public ResponseEntity<List<Transaction>> viewTransactionByDate(@RequestParam LocalDate from,
 			@RequestParam LocalDate to) {

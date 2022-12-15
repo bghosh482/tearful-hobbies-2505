@@ -9,8 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
 import lombok.Data;
@@ -21,15 +23,22 @@ public class Wallet {
 	
 	@Id 
 	private Integer wid;
-	private BigDecimal balance;
+	private double balance;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL , mappedBy="wallet")
+	private List<Transaction> transactions = new ArrayList<>();
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Accouont> accouonts = new ArrayList<>();
-	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "wallet")
-	private List<Transaction> transactions = new ArrayList<>();
-	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<BillPayment> billPayments = new ArrayList<>();
 
@@ -37,7 +46,7 @@ public class Wallet {
 		super();
 	}
 
-	public Wallet(Integer wid, BigDecimal balance, List<Accouont> accouonts, List<Transaction> transactions,
+	public Wallet(Integer wid, double balance, List<Accouont> accouonts, List<Transaction> transactions,
 			List<BillPayment> billPayments) {
 		super();
 		this.wid = wid;
@@ -55,11 +64,11 @@ public class Wallet {
 		this.wid = wid;
 	}
 
-	public BigDecimal getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(BigDecimal balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 
