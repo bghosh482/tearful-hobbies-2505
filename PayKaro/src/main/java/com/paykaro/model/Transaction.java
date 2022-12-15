@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -36,6 +37,7 @@ public class Transaction {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate transactionDate;
 	@Min(value = 1)
+	@NotNull
 	private Double amount; 
 	private String description;
 

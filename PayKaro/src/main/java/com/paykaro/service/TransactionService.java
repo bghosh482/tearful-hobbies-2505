@@ -12,7 +12,7 @@ import com.paykaro.model.Wallet;
 public interface TransactionService {
 	
 	
-	public Transaction addTranscation(Transaction tean) throws TransactionalException;
+	public TransactionDTO addTranscation(TransactionDTO tean) throws TransactionalException;
 	
 	public List<Transaction> viewTransactionByWallet(Integer wallet_id) throws TransactionalException;
 	

@@ -11,6 +11,7 @@ import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.paykaro.dto.TransactionDTO;
 import com.paykaro.model.Transaction;
 import com.paykaro.model.Wallet;
 import com.paykaro.repository.TransactionDAO;
@@ -25,7 +26,7 @@ public class TransactionServiceImpl implements TransactionService {
 	private WalletDao walletDao;
 
 	@Override
-	public Transaction addTranscation(Transaction tean) throws TransactionalException {
+	public TransactionDTO addTranscation(TransactionDTO tean) throws TransactionalException {
 		// TODO Auto-generated method stub
 		if (tean == null) {
 
@@ -34,9 +35,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 	 
 
-			Wallet wallet= walletDao.findById(tean.getWallet().getWid()).get();
+			Wallet wallet= walletDao.findById(tean.getWalletid()).get();
 			
-			if(tean.getWallet().getWid()!=wallet.getWid()) {
+			if(tean.getWalletid()!=wallet.getWid()) {
 				
 				throw new TransactionException("Invalid wallet id...");
 			}
@@ -49,8 +50,14 @@ public class TransactionServiceImpl implements TransactionService {
 		 
 			wallet.setBalance(wallet.getBalance() - tean.getAmount());
 			
-			wallet.getTransactions().add(tean);
-		      tean.setWallet(wallet);
+			Transaction trans=new Transaction();
+			trans.setAmount(tean.getAmount());
+			trans.setTransactionType(tean.getDescription());
+			trans.setDescription(tean.getDescription());
+			trans.setWallet(wallet);
+			
+			wallet.getTransactions().add(trans);
+		       
 
 		      walletDao.save(wallet);
 			   

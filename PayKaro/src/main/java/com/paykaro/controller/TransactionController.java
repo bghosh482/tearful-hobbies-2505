@@ -27,9 +27,9 @@ public class TransactionController {
 	TransactionService transactionService;
 	
 	@PostMapping("/transaction")
-	public ResponseEntity<Transaction> addTranscation( @io.swagger.v3.oas.annotations.parameters.RequestBody Transaction tr) {
+	public ResponseEntity<TransactionDTO> addTranscation( @io.swagger.v3.oas.annotations.parameters.RequestBody TransactionDTO tr) {
 		
-		return new ResponseEntity<Transaction>(transactionService.addTranscation(tr), HttpStatus.ACCEPTED);
+		return new ResponseEntity<TransactionDTO>(transactionService.addTranscation(tr), HttpStatus.ACCEPTED);
 	}
 	
 	

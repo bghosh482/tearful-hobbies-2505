@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TransactionDTO {
 	
-	private Integer amount;
+	private Double amount;
 	private String description;
 	private String transactionType;
 	private Integer walletid;
