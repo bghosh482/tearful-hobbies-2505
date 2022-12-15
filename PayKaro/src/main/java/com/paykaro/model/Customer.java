@@ -8,8 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.validator.constraints.UniqueElements;
 
 import lombok.Data;
 
@@ -20,11 +24,13 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer cid;
 	private String name;
-	private String mobileNumber;
+
+	private String mobileNo;
 	private String password;
-	@OneToOne(cascade = CascadeType.ALL)
-	private Wallet wallet;
+
+	private Integer walletId;
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Benificiary> benificiaries = new ArrayList<>();
+	@JoinColumn(name = "customerId")
+	private List<Beneficiary> benificiaries = new ArrayList<>();
 
 }
