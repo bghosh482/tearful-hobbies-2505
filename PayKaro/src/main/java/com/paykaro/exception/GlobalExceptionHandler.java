@@ -20,11 +20,11 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
 
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<MyErrorDetails> myExceptionHandler(Exception e, WebRequest req) {
+	@ExceptionHandler(BenificiaryException.class)
+	public ResponseEntity<MyErrorDetails> myBenificiaryExceptionHandler(BenificiaryException be, WebRequest req) {
 		MyErrorDetails err = new MyErrorDetails();
 		err.setTimestamp(LocalDateTime.now());
-		err.setMessage(e.getMessage());
+		err.setMessage(be.getMessage());
 		err.setDescription(req.getDescription(false));
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 

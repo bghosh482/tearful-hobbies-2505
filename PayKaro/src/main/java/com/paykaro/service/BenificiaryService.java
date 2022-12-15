@@ -3,10 +3,10 @@ import java.util.List;
 import com.paykaro.model.Benificiary;
 import com.paykaro.model.Customer;
 public interface BenificiaryService {
-	public Benificiary addBeneficiary(Benificiary bd);
-	public Benificiary deleteBeneficiary(Benificiary bd);
-	public Benificiary viewBeneficiary(String mobNo);
-	public List<Benificiary> viewAllBenificiary(Customer customer);
+	public Benificiary addBenificiary(Benificiary bd);
+	public String deleteBenificiary(Benificiary bd);
+	public Benificiary viewBenificiary(String mobileNumber);
+	public List<Benificiary> viewAllBenificiary();
 	
 	
 }

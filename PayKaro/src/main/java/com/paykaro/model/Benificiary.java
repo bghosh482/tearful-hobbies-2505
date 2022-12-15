@@ -2,21 +2,29 @@ package com.paykaro.model;
 
 import javax.persistence.Entity;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import lombok.Data;
 
 @Entity
 @Data
 public class Benificiary {
-
-	private Integer bid;
+	@Id
+	@GeneratedValue
+	private Integer benificiaryId;
 	private String name;
-	private String mobileNo;
+	private String mobileNumber;
 	
-	public Integer getBid() {
-		return bid;
+	public Benificiary() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	public void setBid(Integer bid) {
-		this.bid = bid;
+	public Integer getbenificiaryId() {
+		return benificiaryId;
+	}
+	public void setbenificiaryId(Integer benificiaryId) {
+		this.benificiaryId = benificiaryId;
 	}
 	public String getName() {
 		return name;
@@ -24,13 +32,16 @@ public class Benificiary {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getMobileNo() {
-		return mobileNo;
+	public String getMobileNumber() {
+		return mobileNumber;
 	}
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
-	
+	@Override
+	public String toString() {
+		return "Benificiary [benificiaryId=" + benificiaryId + ", name=" + name + ", mobileNumber=" + mobileNumber + "]";
+	}
 	
 
 }

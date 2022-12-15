@@ -1,6 +1,7 @@
+
 package com.paykaro.exception;
 
-public class BenificiaryException extends RuntimeException {
+public class BenificiaryException extends Exception {
 	public BenificiaryException(String msg) {
 		super(msg);
 	}

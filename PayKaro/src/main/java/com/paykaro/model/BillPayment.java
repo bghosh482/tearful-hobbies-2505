@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
-@Entity
+//@Entity
 @Data
 public class BillPayment {
 	private Integer billId;

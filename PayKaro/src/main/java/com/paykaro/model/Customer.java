@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 
 import lombok.Data;
 
-@Entity
+//@Entity
 @Data
 public class Customer {
 	@Id
