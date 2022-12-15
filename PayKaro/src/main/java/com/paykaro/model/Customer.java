@@ -29,8 +29,5 @@ public class Customer {
 	private String password;
 
 	private Integer walletId;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customerId")
-	private List<Beneficiary> benificiaries = new ArrayList<>();
 
 }

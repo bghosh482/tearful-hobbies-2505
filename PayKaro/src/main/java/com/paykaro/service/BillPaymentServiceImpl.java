@@ -43,41 +43,29 @@ public class BillPaymentServiceImpl implements BillPaymentService {
 			throw new CustomerException("Please Login first...");
 		}
 
-		Optional<Customer> customer = customerDAO.findById(loggedInUser.getUserId());
-		if (customer.get().getWalletId() != null) {
-
-			Optional<Wallet> savedWallet = walletDAO.findById(customer.get().getWalletId());
-
-			BillPayment savedBillPayment = billPaymentDAO.save(billPayment);
-
-			savedWallet.get().getBillPayments().add(billPayment);
-			walletDAO.save(savedWallet.get());
-			return savedBillPayment;
-
-		}
-
-		throw new WalletException("Wallet not exist.first create wallet..");
-
+		walletDAO.findById(billPayment.getWallet().getWid())
+				.orElseThrow(() -> new WalletException("wallet does not exist..."));
+		return billPaymentDAO.save(billPayment);
 	}
 
-	@Override
-	public List<BillPayment> viewAllBillPayments(String key)
-			throws CustomerException, WalletException, BillPaymentException {
-		CurrentUserSession loggedInUser = sessionDAO.findByUuid(key);
-
-		if (loggedInUser == null) {
-			throw new CustomerException("Please provide a valid key ");
-		}
-
-		Customer customer = customerDAO.findById(loggedInUser.getUserId())
-				.orElseThrow(() -> new CustomerException("No customer found..."));
-
-		Wallet savedWallet = walletDAO.findById(customer.getWalletId())
-				.orElseThrow(() -> new WalletException("create wallet first"));
-
-		if (savedWallet.getBillPayments().isEmpty())
-			throw new BillPaymentException("No payment found...");
-		return savedWallet.getBillPayments();
-	}
+//	@Override
+//	public List<BillPayment> viewAllBillPayments(String key)
+//			throws CustomerException, WalletException, BillPaymentException {
+//		CurrentUserSession loggedInUser = sessionDAO.findByUuid(key);
+//
+//		if (loggedInUser == null) {
+//			throw new CustomerException("Please provide a valid key ");
+//		}
+//
+//		Customer customer = customerDAO.findById(loggedInUser.getUserId())
+//				.orElseThrow(() -> new CustomerException("No customer found..."));
+//
+//		Wallet savedWallet = walletDAO.findById(customer.getWalletId())
+//				.orElseThrow(() -> new WalletException("create wallet first"));
+//
+//		if (savedWallet.getBillPayments().isEmpty())
+//			throw new BillPaymentException("No payment found...");
+//		return savedWallet.getBillPayments();
+//	}
 
 }

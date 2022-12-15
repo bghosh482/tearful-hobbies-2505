@@ -40,21 +40,11 @@ public class TransactionServiceImpl implements TransactionService {
 		if (loggedInUser == null) {
 			throw new CustomerException("Please Login first...");
 		}
-		
-		Optional<Customer> customer = customerDAO.findById(loggedInUser.getUserId());
-		if (customer.get().getWalletId() != null) {
 
-			Optional<Wallet> savedWallet = walletDAO.findById(customer.get().getWalletId());
-			Transaction savedTransaction = transactionDAO.save(transaction);
+		walletDAO.findById(transaction.getWallet().getWid())
+				.orElseThrow(() -> new WalletException("wallet not found..."));
 
-			savedWallet.get().getTransactions().add(savedTransaction);
-
-			walletDAO.save(savedWallet.get());
-			return savedTransaction;
-
-		}
-
-		throw new WalletException("Wallet not exist.first create wallet..");
+		return transactionDAO.save(transaction);
 
 	}
 

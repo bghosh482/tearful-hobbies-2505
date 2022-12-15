@@ -1,7 +1,5 @@
 package com.paykaro.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,12 +34,9 @@ public class BeneficiaryServiceImpl implements BeneficiaryService {
 			throw new CustomerException("Please provide a valid key to  add beneficiary...");
 		}
 
-		Optional<Customer> customer = customerDAO.findById(loggedInUser.getUserId());
-
-		Beneficiary savedBeneficiary = beneficiaryDAO.save(beneficiary);
-		customer.get().getBenificiaries().add(beneficiary);
-		customerDAO.save(customer.get());
-		return beneficiary;
+		customerDAO.findById(beneficiary.getCustomer().getCid())
+				.orElseThrow(() -> new CustomerException("customer not found..create account"));
+		return beneficiaryDAO.save(beneficiary);
 
 	}
 
@@ -54,7 +49,6 @@ public class BeneficiaryServiceImpl implements BeneficiaryService {
 		}
 
 		beneficiaryDAO.delete(beneficiary);
-
 
 		return beneficiary;
 	}

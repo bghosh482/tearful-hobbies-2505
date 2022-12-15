@@ -29,14 +29,7 @@ public class Wallet {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer wid;
 	private Double balance;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "walletId")
-	private List<Account> accouonts = new ArrayList<>();
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "walletId")
-	private List<Transaction> transactions = new ArrayList<>();
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "walletId")
-	private List<BillPayment> billPayments = new ArrayList<>();
+	
+
 
 }
