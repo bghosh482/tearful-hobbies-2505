@@ -2,13 +2,15 @@ package com.paykaro.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
 @Entity
-@Data
+ @Data
 public class Accouont {
+	@Id
 	private Integer accId;
 	private String accountNo;
 	private String ifscCode;
@@ -16,4 +18,11 @@ public class Accouont {
 	private Double balance;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Wallet wallet;
+	
+	public static void main(String[] args) {
+		Accouont ac=new Accouont();
+		
+		 
+	}
+	
 }

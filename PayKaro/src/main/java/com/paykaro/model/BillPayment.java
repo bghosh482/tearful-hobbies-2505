@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
@@ -11,6 +12,7 @@ import lombok.Data;
 @Entity
 @Data
 public class BillPayment {
+	@Id
 	private Integer billId;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Wallet wallet;
