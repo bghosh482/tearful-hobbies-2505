@@ -52,7 +52,7 @@ public class TransactionServiceImpl implements TransactionService {
 			
 			Transaction trans=new Transaction();
 			trans.setAmount(tean.getAmount());
-			trans.setTransactionType(tean.getDescription());
+			trans.setTransactionType(tean.getTransactionType());
 			trans.setDescription(tean.getDescription());
 			trans.setWallet(wallet);
 			
