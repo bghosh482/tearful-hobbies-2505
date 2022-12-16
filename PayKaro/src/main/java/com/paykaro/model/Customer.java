@@ -28,9 +28,7 @@ public class Customer {
 	private String mobileNo;
 	private String password;
 
-	private Integer walletId;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customerId")
-	private List<Beneficiary> benificiaries = new ArrayList<>();
+	@OneToOne(cascade = CascadeType.ALL)
+	private Wallet wallet;
 
 }

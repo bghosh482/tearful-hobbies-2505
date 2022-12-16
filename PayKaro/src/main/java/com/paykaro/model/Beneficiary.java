@@ -1,9 +1,14 @@
 package com.paykaro.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -16,5 +21,8 @@ public class Beneficiary {
 	private Integer bid;
 	private String name;
 	private String mobileNo;
-
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "cusomerId")
+	private Customer customer;
 }
