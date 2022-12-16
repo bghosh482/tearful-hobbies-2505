@@ -1,50 +1,105 @@
 package com.paykaro.service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.TransactionalException;
 
+import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paykaro.exception.CustomerException;
-import com.paykaro.exception.WalletException;
-import com.paykaro.model.CurrentUserSession;
-import com.paykaro.model.Customer;
+import com.paykaro.dto.TransactionDTO;
 import com.paykaro.model.Transaction;
 import com.paykaro.model.Wallet;
-import com.paykaro.repository.CustomerDAO;
-import com.paykaro.repository.SessionDAO;
 import com.paykaro.repository.TransactionDAO;
-import com.paykaro.repository.WalletDAO;
+import com.paykaro.repository.WalletDao;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	private TransactionDAO transactionDAO;
-
 	@Autowired
-	private SessionDAO sessionDAO;
-
-	@Autowired
-	private CustomerDAO customerDAO;
-
-	@Autowired
-	private WalletDAO walletDAO;
+	private WalletDao walletDao;
 
 	@Override
-	public Transaction addTransaction(Transaction transaction, String key) throws CustomerException, WalletException {
-		CurrentUserSession loggedInUser = sessionDAO.findByUuid(key);
+	public TransactionDTO addTranscation(TransactionDTO tean) throws TransactionalException {
+		// TODO Auto-generated method stub
+		if (tean == null) {
 
-		if (loggedInUser == null) {
-			throw new CustomerException("Please Login first...");
+			throw new TransactionException("please send correct details...");
 		}
 
-		walletDAO.findById(transaction.getWallet().getWid())
-				.orElseThrow(() -> new WalletException("wallet not found..."));
+	 
 
-		return transactionDAO.save(transaction);
+			Wallet wallet= walletDao.findById(tean.getWalletid()).get();
+			
+			if(tean.getWalletid()!=wallet.getWid()) {
+				
+				throw new TransactionException("Invalid wallet id...");
+			}
+			
+
+			if (wallet.getBalance() < tean.getAmount()) {
+				
+				throw new TransactionException("Insufficent balance for transaction...");
+			}
+		 
+			wallet.setBalance(wallet.getBalance() - tean.getAmount());
+			
+			Transaction trans=new Transaction();
+			trans.setAmount(tean.getAmount());
+			trans.setTransactionType(tean.getTransactionType());
+			trans.setDescription(tean.getDescription());
+			trans.setWallet(wallet);
+			
+			wallet.getTransactions().add(trans);
+		       
+
+		      walletDao.save(wallet);
+			   
+			
+		
+
+		return tean;
+	}
+
+	@Override
+	public List<Transaction> viewTransactionByDate(LocalDate from, LocalDate to) throws TransactionalException {
+		// TODO Auto-generated method stub
+		List<Transaction> list = transactionDAO.viewTransactionByDate(from, to);
+		if (list.size() == 0) {
+			throw new TransactionException("No Transcation done between  these dates");
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<Transaction> viewTransactionByWallet(Integer wallet_id) throws TransactionalException {
+		// TODO Auto-generated method stub
+		List<Transaction> list = transactionDAO.findByWalletid(wallet_id);
+
+		if (list.size() == 0) {
+			throw new TransactionException("No Transcation done between  these dates");
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<Transaction> viewALLTransaction(String type) throws TransactionalException {
+		// TODO Auto-generated method stub
+		List<Transaction> list = transactionDAO.findByTransactionType(type);
+
+		if (list.size() == 0) {
+			throw new TransactionException("No Transcation done between  these dates");
+		}
+
+		return list;
 
 	}
 

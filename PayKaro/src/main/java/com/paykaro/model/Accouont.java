@@ -1,7 +1,5 @@
 package com.paykaro.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,14 +9,16 @@ import lombok.Data;
 
 @Entity
 @Data
-public class BillPayment {
+public class Accouont {
 	@Id
-	private Integer billId;
+	private Integer accId;
+	private String accountNo;
+	private String ifscCode;
+	private String bankName;
+	private Double balance;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Wallet wallet;
-
-	private String billType;
-	private Double amount;
-	private LocalDate paymentDate;
-
+	
+	 
+	
 }
