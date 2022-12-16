@@ -19,8 +19,7 @@ public class Beneficiary {
 	private Integer bid;
 	private String name;
 	private String mobileNo;
-	@ManyToOne
-	@JoinColumn(name = "accountId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cusomerId")
 	private Customer customer;
-
 }

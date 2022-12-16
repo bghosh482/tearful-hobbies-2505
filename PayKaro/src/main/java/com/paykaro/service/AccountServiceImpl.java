@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.paykaro.exception.AccountException;
 import com.paykaro.exception.CustomerException;
 import com.paykaro.exception.WalletException;
 import com.paykaro.model.Account;
@@ -37,10 +38,27 @@ public class AccountServiceImpl implements AccountService {
 			throw new CustomerException("Please provide a valid key to  add bank account...");
 		}
 
-		walletDAO.findById(account.getWallet().getWid())
+		Wallet wallet = walletDAO.findById(account.getWallet().getWid())
 				.orElseThrow(() -> new WalletException("wallet does not exist"));
 
-		return accountDAO.save(account);
+		wallet.getAccounts().add(account);
+		walletDAO.save(wallet);
+		return account;
+
+	}
+
+	@Override
+	public Account removeAccount(Account account, String key) throws CustomerException, AccountException {
+		CurrentUserSession loggedInUser = sessionDAO.findByUuid(key);
+
+		if (loggedInUser == null) {
+			throw new CustomerException("Please provide a valid key to  add bank account...");
+		}
+		Account savedAccount = accountDAO.findById(account.getAccId())
+				.orElseThrow(() -> new AccountException("No account found..."));
+
+		accountDAO.delete(savedAccount);
+		return savedAccount;
 
 	}
 

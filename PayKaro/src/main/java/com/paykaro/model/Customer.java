@@ -28,6 +28,7 @@ public class Customer {
 	private String mobileNo;
 	private String password;
 
-	private Integer walletId;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Wallet wallet;
 
 }

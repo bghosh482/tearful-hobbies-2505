@@ -48,24 +48,22 @@ public class BillPaymentServiceImpl implements BillPaymentService {
 		return billPaymentDAO.save(billPayment);
 	}
 
-//	@Override
-//	public List<BillPayment> viewAllBillPayments(String key)
-//			throws CustomerException, WalletException, BillPaymentException {
-//		CurrentUserSession loggedInUser = sessionDAO.findByUuid(key);
-//
-//		if (loggedInUser == null) {
-//			throw new CustomerException("Please provide a valid key ");
-//		}
-//
-//		Customer customer = customerDAO.findById(loggedInUser.getUserId())
-//				.orElseThrow(() -> new CustomerException("No customer found..."));
-//
-//		Wallet savedWallet = walletDAO.findById(customer.getWalletId())
-//				.orElseThrow(() -> new WalletException("create wallet first"));
-//
-//		if (savedWallet.getBillPayments().isEmpty())
-//			throw new BillPaymentException("No payment found...");
-//		return savedWallet.getBillPayments();
-//	}
+	@Override
+	public List<BillPayment> viewAllBillPayments(String key)
+			throws CustomerException, WalletException, BillPaymentException {
+		CurrentUserSession loggedInUser = sessionDAO.findByUuid(key);
+
+		if (loggedInUser == null) {
+			throw new CustomerException("Please provide a valid key ");
+		}
+
+		customerDAO.findById(loggedInUser.getUserId()).get().getWallet();
+
+		List<BillPayment> billPayments = billPaymentDAO
+				.findByWallet(customerDAO.findById(loggedInUser.getUserId()).get().getWallet());
+
+		return billPayments;
+
+	}
 
 }

@@ -11,7 +11,7 @@ public interface BillPaymentService {
 	public BillPayment addBillPayment(BillPayment billPayment, String key)
 			throws BillPaymentException, CustomerException, WalletException;
 
-//	public List<BillPayment> viewAllBillPayments(String key)
-//			throws CustomerException, WalletException, BillPaymentException;
+	public List<BillPayment> viewAllBillPayments(String key)
+			throws CustomerException, WalletException, BillPaymentException;
 
 }

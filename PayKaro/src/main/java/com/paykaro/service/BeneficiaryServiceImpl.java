@@ -1,5 +1,7 @@
 package com.paykaro.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,23 @@ public class BeneficiaryServiceImpl implements BeneficiaryService {
 		beneficiaryDAO.delete(beneficiary);
 
 		return beneficiary;
+	}
+
+	@Override
+	public List<Beneficiary> viewBeneficiaries(String mobileNo, String key)
+			throws CustomerException, BeneficiaryException {
+
+		CurrentUserSession loggedInUser = sessionDAO.findByUuid(key);
+
+		if (loggedInUser == null) {
+			throw new CustomerException("Please provide a valid key to  add beneficiary...");
+		}
+
+		List<Beneficiary> beneficiaries = beneficiaryDAO.findByMobileNo(mobileNo);
+		if (beneficiaries.isEmpty())
+			throw new BeneficiaryException("NO beneficiary found....");
+
+		return beneficiaries;
 	}
 
 }

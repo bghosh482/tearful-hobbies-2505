@@ -33,10 +33,10 @@ public class BillPaymentController {
 		return new ResponseEntity<BillPayment>(savedBillPayment, HttpStatus.CREATED);
 	}
 
-//	@GetMapping("payments/bills")
-//	public ResponseEntity<List<BillPayment>> viewAllBillPaymEntityHandler(@RequestParam(required = false) String key)
-//			throws CustomerException, WalletException, BillPaymentException {
-//		List<BillPayment> billPayments = billPaymentService.viewAllBillPayments(key);
-//		return new ResponseEntity<List<BillPayment>>(billPayments, HttpStatus.OK);
-//	}
+	@GetMapping("payments/bills")
+	public ResponseEntity<List<BillPayment>> viewAllBillPaymEntityHandler(@RequestParam(required = false) String key)
+			throws CustomerException, WalletException, BillPaymentException {
+		List<BillPayment> billPayments = billPaymentService.viewAllBillPayments(key);
+		return new ResponseEntity<List<BillPayment>>(billPayments, HttpStatus.OK);
+	}
 }

@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 import lombok.AllArgsConstructor;
 
 import lombok.Getter;
@@ -23,6 +26,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,8 +35,8 @@ public class Account {
 	private String ifscCode;
 	private String bankName;
 	private Double balance;
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "walletId")
+
+	@ManyToOne
 	private Wallet wallet;
 
 }
