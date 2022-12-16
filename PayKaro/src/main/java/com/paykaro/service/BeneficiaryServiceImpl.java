@@ -36,23 +36,31 @@ public class BeneficiaryServiceImpl implements BeneficiaryService {
 			throw new CustomerException("Please provide a valid key to  add beneficiary...");
 		}
 
-		customerDAO.findById(beneficiary.getCustomer().getCid())
+		Customer existingCustomer = customerDAO.findById(beneficiary.getCustomer().getCid())
 				.orElseThrow(() -> new CustomerException("customer not found..create account"));
+		beneficiary.setCustomer(existingCustomer);
 		return beneficiaryDAO.save(beneficiary);
 
 	}
 
 	@Override
-	public Beneficiary deleteBeneficiary(Beneficiary beneficiary, String key) throws CustomerException {
+	public Beneficiary deleteBeneficiary(Beneficiary beneficiary, String key)
+			throws CustomerException, BeneficiaryException {
 		CurrentUserSession loggedInUser = sessionDAO.findByUuid(key);
 
 		if (loggedInUser == null) {
 			throw new CustomerException("Please provide a valid key to  add beneficiary...");
 		}
 
-		beneficiaryDAO.delete(beneficiary);
+		Beneficiary existingBeneficiary = beneficiaryDAO.findById(beneficiary.getBid())
+				.orElseThrow(() -> new BeneficiaryException("enter corrent beneficiary details"));
 
-		return beneficiary;
+		if (existingBeneficiary.getCustomer().getCid() != loggedInUser.getUserId())
+			throw new CustomerException("customer not found...");
+
+		beneficiaryDAO.delete(existingBeneficiary);
+
+		return existingBeneficiary;
 	}
 
 	@Override

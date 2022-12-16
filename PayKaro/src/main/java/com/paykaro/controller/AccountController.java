@@ -1,5 +1,7 @@
 package com.paykaro.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,11 +35,19 @@ public class AccountController {
 	}
 
 	@DeleteMapping("/customers/account")
-	public ResponseEntity<Account> removeAccountHandler(@RequestBody Account account,
-			@RequestParam(required = false) String key) throws CustomerException, AccountException {
+	public ResponseEntity<Account> removeAccountHandler(@RequestParam(required = false) Integer accId,
+			@RequestParam(required = false) String key) throws CustomerException, AccountException, WalletException {
 
-		Account deleteAccount = accountService.removeAccount(account, key);
+		Account deleteAccount = accountService.removeAccount(accId, key);
 		return new ResponseEntity<Account>(deleteAccount, HttpStatus.OK);
 	}
 
+	@GetMapping("/customers")
+	public ResponseEntity<List<Account>> viewAccount(@RequestParam(required = false) Integer walletId,
+			@RequestParam(required = false) String key) throws CustomerException, WalletException, AccountException {
+
+		List<Account> accounts = accountService.viewAllAccount(walletId, key);
+		return new ResponseEntity<>(accounts, HttpStatus.OK);
+
+	}
 }

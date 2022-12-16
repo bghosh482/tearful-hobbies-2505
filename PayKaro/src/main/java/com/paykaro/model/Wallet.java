@@ -33,7 +33,7 @@ public class Wallet {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer wid;
 	private Double balance;
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Account> accounts = new ArrayList<>();
 

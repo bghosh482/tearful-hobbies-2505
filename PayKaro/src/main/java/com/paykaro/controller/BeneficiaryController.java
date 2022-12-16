@@ -35,7 +35,7 @@ public class BeneficiaryController {
 
 	@DeleteMapping("customers/beneficiary")
 	public ResponseEntity<Beneficiary> removeBeneficiaryHandler(@RequestBody Beneficiary beneficiary,
-			@RequestParam(required = false) String key) throws CustomerException {
+			@RequestParam(required = false) String key) throws CustomerException, BeneficiaryException {
 
 		Beneficiary removedBeneficiary = beneficiaryService.deleteBeneficiary(beneficiary, key);
 		return new ResponseEntity<Beneficiary>(removedBeneficiary, HttpStatus.OK);

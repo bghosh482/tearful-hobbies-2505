@@ -10,7 +10,8 @@ public interface BeneficiaryService {
 	public Beneficiary addBeneficiary(Beneficiary beneficiary, String key)
 			throws BeneficiaryException, CustomerException;
 
-	public Beneficiary deleteBeneficiary(Beneficiary beneficiary, String key) throws CustomerException;
+	public Beneficiary deleteBeneficiary(Beneficiary beneficiary, String key)
+			throws CustomerException, BeneficiaryException;
 
 	public List<Beneficiary> viewBeneficiaries(String mobileNo, String key)
 			throws CustomerException, BeneficiaryException;
