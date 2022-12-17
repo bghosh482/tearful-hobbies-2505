@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
@@ -33,8 +34,13 @@ public class Wallet {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer wid;
 	private Double balance;
+
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Account> accounts = new ArrayList<>();
+
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "wallet")
+	private List<Transaction> transactions = new ArrayList<>();
 
 }
