@@ -7,11 +7,11 @@ import com.paykaro.model.Wallet;
 
 public interface AccountService {
 	
-	public Wallet addAccount(Account acc);
+	public Wallet addAccount(Account acc,Integer walletid);
 
 	public Wallet removeAccount(Account acc);
 	
-	public Account viewAccount(Wallet wallet);
+	public Account viewAccount(Integer walletid,Integer accountid);
 	
-	public List<Account> viewAllAccounts(Wallet wallet);
+	public List<Account> viewAllAccounts(Integer walletid);
 }
