@@ -16,7 +16,7 @@ public interface TransactionService {
 	
 	public List<Transaction> viewTransactionByWallet(Integer wallet_id) throws TransactionalException;
 	
-	public List<Transaction> viewTransactionByDate(LocalDate from,LocalDate to)throws TransactionalException;
+	public List<Transaction> viewTransactionByDate(String from,String to)throws TransactionalException;
 	
 	public List<Transaction> viewALLTransaction(String type)throws TransactionalException;
 	

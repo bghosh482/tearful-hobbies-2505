@@ -14,10 +14,12 @@ public interface TransactionDAO extends JpaRepository<Transaction, Integer>{
 	@Query("select w.transactions from Wallet w where w.wid=?1")
 	public List<Transaction> findByWalletid(int wallet_id);
 	
-	@Query("select t from Transaction t where t.transactionDate<=?1 and t.transactionDate>=?2 ")
+	@Query("select t from Transaction t where t.transactionDate>=?1 and t.transactionDate<=?2")
 	public List<Transaction> viewTransactionByDate(LocalDate from,LocalDate to);
 	
 	public List<Transaction> findByTransactionType(String type);
+
+	 
 	
 	
 	

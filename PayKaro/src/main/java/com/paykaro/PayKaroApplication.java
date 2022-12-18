@@ -1,5 +1,7 @@
 package com.paykaro;
 
+import java.sql.DriverManager;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,6 +14,9 @@ public class PayKaroApplication {
 	public static void main(String[] args) {
 		
 		SpringApplication.run(PayKaroApplication.class, args);
+		 
 	}
+	
+	
 
 }

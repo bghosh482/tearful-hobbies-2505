@@ -68,9 +68,11 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public List<Transaction> viewTransactionByDate(LocalDate from, LocalDate to) throws TransactionalException {
+	public List<Transaction> viewTransactionByDate(String from, String to) throws TransactionalException {
 		// TODO Auto-generated method stub
-		List<Transaction> list = transactionDAO.viewTransactionByDate(from, to);
+		LocalDate localDate = LocalDate.parse(from);
+		LocalDate localDate1 = LocalDate.parse(to);
+		List<Transaction> list = transactionDAO.viewTransactionByDate(localDate, localDate1);
 		if (list.size() == 0) {
 			throw new TransactionException("No Transcation done between  these dates");
 		}

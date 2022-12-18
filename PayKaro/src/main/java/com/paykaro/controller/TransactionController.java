@@ -4,18 +4,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.paykaro.dto.TransactionDTO;
 import com.paykaro.model.Transaction;
-import com.paykaro.model.Wallet;
 import com.paykaro.service.TransactionService;
 
  
@@ -41,8 +40,10 @@ public class TransactionController {
 	}
  
 	@GetMapping("/transaction")
-	public ResponseEntity<List<Transaction>> viewTransactionByDate(@RequestParam LocalDate from,
-			@RequestParam LocalDate to) {
+	public ResponseEntity<List<Transaction>> viewTransactionByDate(@RequestParam  String from,
+				@RequestParam String to) {
+		
+		
 
 		return new ResponseEntity<>(transactionService.viewTransactionByDate(from, to), HttpStatus.OK);
 	}
