@@ -29,6 +29,7 @@ public class Customer {
 	private String password;
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cusid")
 	private Wallet wallet;
 
 }

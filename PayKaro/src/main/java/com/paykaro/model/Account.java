@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -35,9 +36,5 @@ public class Account {
 	private String ifscCode;
 	private String bankName;
 	private Double balance;
-
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Wallet wallet;
 
 }

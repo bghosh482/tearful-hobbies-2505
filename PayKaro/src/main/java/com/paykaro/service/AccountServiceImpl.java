@@ -26,6 +26,8 @@ public class AccountServiceImpl implements AccountService {
 	private AccountDAO accountDAO;
 
 	@Autowired
+	private CustomerDAO customerDAO;
+	@Autowired
 	private SessionDAO sessionDAO;
 
 	@Autowired
@@ -39,10 +41,8 @@ public class AccountServiceImpl implements AccountService {
 			throw new CustomerException("Please provide a valid key to  add bank account...");
 		}
 
-		Wallet wallet = walletDAO.findById(account.getWallet().getWid())
+		Wallet wallet = walletDAO.findById(customerDAO.findById(loggedInUser.getUserId()).get().getWallet().getWid())
 				.orElseThrow(() -> new WalletException("wallet does not exist"));
-
-		account.setWallet(wallet);
 
 		Account savedAccount = accountDAO.save(account);
 
@@ -60,14 +60,13 @@ public class AccountServiceImpl implements AccountService {
 		if (loggedInUser == null) {
 			throw new CustomerException("Please provide a valid key to  add bank account...");
 		}
-		Account savedAccount = accountDAO.findById(accId)
+
+		Account existingAccount = accountDAO.findById(accId)
 				.orElseThrow(() -> new AccountException("No account found..."));
 
-		Wallet existingWallet = walletDAO.findById(savedAccount.getWallet().getWid())
-				.orElseThrow(() -> new WalletException("No wallet found..."));
-		existingWallet.getAccounts().remove(savedAccount);
+		accountDAO.delete(existingAccount);
 
-		return savedAccount;
+		return existingAccount;
 
 	}
 
