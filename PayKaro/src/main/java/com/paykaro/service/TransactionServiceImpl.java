@@ -1,6 +1,8 @@
 package com.paykaro.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.transaction.TransactionalException;
@@ -62,9 +64,10 @@ public class TransactionServiceImpl implements TransactionService {
 	public List<Transaction> viewTransactionByDate(String from, String to)
 			throws TransactionalException, TransactionException {
 		// TODO Auto-generated method stub
+//		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		LocalDate localDate = LocalDate.parse(from);
 		LocalDate localDate1 = LocalDate.parse(to);
-		List<Transaction> list = transactionDAO.viewTransactionByDate(from, to);
+		List<Transaction> list = transactionDAO.viewTransactionByDate(localDate, localDate1);
 		if (list.size() == 0) {
 			throw new TransactionException("No Transcation done between  these dates");
 		}
